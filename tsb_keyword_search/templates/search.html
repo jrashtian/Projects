@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TSB Keyword Search</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; }
+        form div { margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+<h1>Search Potential TSB Indicators</h1>
+<form method="post" action="/search">
+    <div>
+        <label>Keywords:</label>
+        <input type="text" name="keywords" required>
+    </div>
+    <div>
+        <label>Year:</label>
+        <select name="year">
+            {% for y in range(2015, 2026) %}
+            <option value="{{ y }}">{{ y }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label>Make:</label>
+        <select name="make">
+            <option>Mercedes</option>
+            <option>BMW</option>
+            <option>Ford</option>
+            <option>Toyota</option>
+            <option>Honda</option>
+        </select>
+    </div>
+    <div>
+        <label>Model (optional):</label>
+        <input type="text" name="model">
+    </div>
+    <button type="submit">Search</button>
+</form>
+{% if results %}
+<h2>Results for "{{ keywords }}"</h2>
+<pre>{{ results|tojson(indent=2) }}</pre>
+{% endif %}
+</body>
+</html>
